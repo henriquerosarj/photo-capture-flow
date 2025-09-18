@@ -1,0 +1,247 @@
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar, Clock, MapPin, Phone, Mail, Camera } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+const BookingForm = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    date: "",
+    time: "",
+    location: "",
+    message: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.service || !formData.date) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos obrigatórios.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "Solicitação enviada!",
+      description: "Entraremos em contato em breve para confirmar seu agendamento.",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      date: "",
+      time: "",
+      location: "",
+      message: ""
+    });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <section id="booking" className="py-20 bg-background">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            Agende Sua <span className="bg-gradient-hero bg-clip-text text-transparent">Sessão</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Preencha o formulário abaixo e entraremos em contato para confirmar todos os detalhes
+          </p>
+        </div>
+
+        <Card className="bg-gradient-card shadow-elegant border-border/50">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <Camera className="w-6 h-6 mr-3 text-primary" />
+              Formulário de Agendamento
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Nome */}
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-foreground font-medium">
+                    Nome Completo *
+                  </Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    placeholder="Seu nome completo"
+                    className="bg-background border-border/50 focus:border-primary"
+                    required
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-foreground font-medium">
+                    Email *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder="seu@email.com"
+                    className="bg-background border-border/50 focus:border-primary"
+                    required
+                  />
+                </div>
+
+                {/* Telefone */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-foreground font-medium">
+                    <Phone className="w-4 h-4 inline mr-2" />
+                    Telefone
+                  </Label>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    placeholder="(11) 99999-9999"
+                    className="bg-background border-border/50 focus:border-primary"
+                  />
+                </div>
+
+                {/* Serviço */}
+                <div className="space-y-2">
+                  <Label htmlFor="service" className="text-foreground font-medium">
+                    Tipo de Serviço *
+                  </Label>
+                  <Select value={formData.service} onValueChange={(value) => handleInputChange("service", value)}>
+                    <SelectTrigger className="bg-background border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione o serviço" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="wedding">Fotografia de Casamento</SelectItem>
+                      <SelectItem value="video">Filmagem Profissional</SelectItem>
+                      <SelectItem value="portrait">Ensaio Fotográfico</SelectItem>
+                      <SelectItem value="corporate">Eventos Corporativos</SelectItem>
+                      <SelectItem value="kids">Fotografia Infantil</SelectItem>
+                      <SelectItem value="custom">Pacote Personalizado</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Data */}
+                <div className="space-y-2">
+                  <Label htmlFor="date" className="text-foreground font-medium">
+                    <Calendar className="w-4 h-4 inline mr-2" />
+                    Data Preferida *
+                  </Label>
+                  <Input
+                    id="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => handleInputChange("date", e.target.value)}
+                    className="bg-background border-border/50 focus:border-primary"
+                    required
+                  />
+                </div>
+
+                {/* Horário */}
+                <div className="space-y-2">
+                  <Label htmlFor="time" className="text-foreground font-medium">
+                    <Clock className="w-4 h-4 inline mr-2" />
+                    Horário Preferido
+                  </Label>
+                  <Select value={formData.time} onValueChange={(value) => handleInputChange("time", value)}>
+                    <SelectTrigger className="bg-background border-border/50 focus:border-primary">
+                      <SelectValue placeholder="Selecione o horário" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="morning">Manhã (08:00 - 12:00)</SelectItem>
+                      <SelectItem value="afternoon">Tarde (13:00 - 17:00)</SelectItem>
+                      <SelectItem value="evening">Noite (18:00 - 22:00)</SelectItem>
+                      <SelectItem value="flexible">Flexível</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Local */}
+              <div className="space-y-2">
+                <Label htmlFor="location" className="text-foreground font-medium">
+                  <MapPin className="w-4 h-4 inline mr-2" />
+                  Local do Evento
+                </Label>
+                <Input
+                  id="location"
+                  value={formData.location}
+                  onChange={(e) => handleInputChange("location", e.target.value)}
+                  placeholder="Endereço ou local do evento"
+                  className="bg-background border-border/50 focus:border-primary"
+                />
+              </div>
+
+              {/* Mensagem */}
+              <div className="space-y-2">
+                <Label htmlFor="message" className="text-foreground font-medium">
+                  Detalhes Adicionais
+                </Label>
+                <Textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  placeholder="Conte-nos mais sobre seu evento, expectativas ou necessidades especiais..."
+                  rows={4}
+                  className="bg-background border-border/50 focus:border-primary resize-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-6">
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-gradient-hero shadow-elegant hover:shadow-gold transition-all duration-300"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Solicitar Agendamento
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Contact Info */}
+        <div className="mt-12 text-center">
+          <p className="text-muted-foreground mb-4">Ou entre em contato diretamente:</p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-5 h-5 text-primary" />
+              <span className="text-foreground">(11) 99999-9999</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Mail className="w-5 h-5 text-primary" />
+              <span className="text-foreground">contato@fotostudio.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BookingForm;

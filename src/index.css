@@ -8,33 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 35 25% 98%;
+    --foreground: 25 15% 25%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 25 15% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 340 45% 75%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 20% 88%;
+    --secondary-foreground: 25 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 35 15% 92%;
+    --muted-foreground: 25 10% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 65% 78%;
+    --accent-foreground: 25 15% 25%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 15% 88%;
+    --input: 35 15% 94%;
+    --ring: 340 45% 75%;
+
+    /* Custom design tokens */
+    --rose-soft: 340 45% 75%;
+    --rose-light: 340 35% 85%;
+    --beige-warm: 35 20% 88%;
+    --beige-light: 35 15% 92%;
+    --gold-elegant: 45 65% 78%;
+    --gold-bright: 45 75% 70%;
+    --gray-soft: 25 10% 55%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(340 45% 75%), hsl(45 65% 78%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(35 15% 96%));
+    --gradient-accent: linear-gradient(90deg, hsl(340 35% 85%), hsl(45 55% 85%));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(340 45% 75% / 0.15);
+    --shadow-elegant: 0 8px 40px -8px hsl(340 45% 75% / 0.2);
+    --shadow-gold: 0 4px 20px -4px hsl(45 65% 78% / 0.25);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-gentle: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 
     --radius: 0.5rem;
 
