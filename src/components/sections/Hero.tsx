@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Calendar, Camera, Video, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-photography.jpg";
+import { Calendar, Camera, Video, Sparkles, Heart } from "lucide-react";
+import heroImage from "@/assets/hero-pets.jpg";
 
 const Hero = () => {
   return (
@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Estúdio fotográfico profissional com equipamentos e iluminação elegante"
+          alt="Estúdio profissional de fotografia de pets com cães e gatos fofos em ambiente acolhedor"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-transparent"></div>
@@ -21,22 +21,22 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2 text-primary">
-                <Sparkles className="w-5 h-5" />
+                <Heart className="w-5 h-5" />
                 <span className="text-sm font-medium uppercase tracking-wide">
-                  Momentos Únicos
+                  Fotografia de Pets
                 </span>
               </div>
               
               <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                Capture a
+                Capture o
                 <span className="block bg-gradient-hero bg-clip-text text-transparent">
-                  Perfeição
+                  Amor Pet
                 </span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Transformamos seus momentos especiais em memórias eternas através de 
-                fotografia e vídeo profissionais com qualidade excepcional.
+                Especializados em fotografia de pets, criamos retratos únicos que capturam 
+                a personalidade e o charme especial do seu melhor amigo de quatro patas.
               </p>
             </div>
             
@@ -46,7 +46,7 @@ const Hero = () => {
                 className="bg-gradient-hero shadow-elegant hover:shadow-gold transition-all duration-300"
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                Agendar Sessão
+                Agendar Sessão Pet
               </Button>
               
               <Button 
@@ -54,19 +54,19 @@ const Hero = () => {
                 size="lg"
                 className="border-primary/20 hover:bg-primary/5 transition-all duration-300"
               >
-                Ver Portfólio
+                Ver Galeria Pet
               </Button>
             </div>
             
             {/* Services Icons */}
             <div className="flex items-center space-x-6 pt-8 border-t border-border">
               <div className="flex items-center space-x-2 text-muted-foreground">
-                <Camera className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Fotografia</span>
+                <Heart className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium">Pets</span>
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
-                <Video className="w-5 h-5 text-accent" />
-                <span className="text-sm font-medium">Videomaking</span>
+                <Camera className="w-5 h-5 text-accent" />
+                <span className="text-sm font-medium">Retratos</span>
               </div>
               <div className="flex items-center space-x-2 text-muted-foreground">
                 <Sparkles className="w-5 h-5 text-gold-elegant" />
@@ -75,26 +75,26 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Stats or additional content can go here */}
+          {/* Stats */}
           <div className="hidden lg:flex flex-col space-y-6">
             <div className="bg-gradient-card rounded-2xl p-8 shadow-soft backdrop-blur-sm">
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground">+500</h3>
-                <p className="text-muted-foreground">Clientes Satisfeitos</p>
+                <h3 className="text-2xl font-bold text-foreground">+300</h3>
+                <p className="text-muted-foreground">Pets Fotografados</p>
               </div>
             </div>
             
             <div className="bg-gradient-card rounded-2xl p-8 shadow-soft backdrop-blur-sm">
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-foreground">5 Anos</h3>
-                <p className="text-muted-foreground">De Experiência</p>
+                <p className="text-muted-foreground">Especializados em Pets</p>
               </div>
             </div>
             
             <div className="bg-gradient-card rounded-2xl p-8 shadow-soft backdrop-blur-sm">
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground">24h</h3>
-                <p className="text-muted-foreground">Atendimento</p>
+                <h3 className="text-2xl font-bold text-foreground">100%</h3>
+                <p className="text-muted-foreground">Satisfação Garantida</p>
               </div>
             </div>
           </div>

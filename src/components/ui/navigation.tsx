@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Camera, Calendar } from "lucide-react";
+import { Menu, X, Heart, Calendar } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,8 +10,8 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <Camera className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">FotoStudio</span>
+            <Heart className="h-8 w-8 text-primary" />
+            <span className="text-xl font-bold text-foreground">PetStudio</span>
           </div>
           
           {/* Desktop Menu */}
@@ -29,8 +29,8 @@ const Navigation = () => {
               Contato
             </a>
             <Button variant="default" className="bg-gradient-hero shadow-soft">
-              <Calendar className="w-4 h-4 mr-2" />
-              Agendar
+              <Heart className="w-4 h-4 mr-2" />
+              Agendar Pet
             </Button>
           </div>
           
@@ -65,8 +65,8 @@ const Navigation = () => {
               </a>
               <div className="px-3 py-2">
                 <Button variant="default" className="w-full bg-gradient-hero shadow-soft">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Agendar
+                  <Heart className="w-4 h-4 mr-2" />
+                  Agendar Pet
                 </Button>
               </div>
             </div>
