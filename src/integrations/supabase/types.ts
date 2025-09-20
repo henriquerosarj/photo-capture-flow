@@ -26,6 +26,7 @@ export type Database = {
           social_media: string | null
           tags: string[] | null
           updated_at: string | null
+          user_id: string | null
         }
         Insert: {
           birthday?: string | null
@@ -38,6 +39,7 @@ export type Database = {
           social_media?: string | null
           tags?: string[] | null
           updated_at?: string | null
+          user_id?: string | null
         }
         Update: {
           birthday?: string | null
@@ -50,6 +52,7 @@ export type Database = {
           social_media?: string | null
           tags?: string[] | null
           updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -122,6 +125,214 @@ export type Database = {
         }
         Relationships: []
       }
+      ml_price_history: {
+        Row: {
+          change_reason: string | null
+          created_at: string
+          id: string
+          ml_product_id: string | null
+          new_price: number
+          old_price: number | null
+        }
+        Insert: {
+          change_reason?: string | null
+          created_at?: string
+          id?: string
+          ml_product_id?: string | null
+          new_price: number
+          old_price?: number | null
+        }
+        Update: {
+          change_reason?: string | null
+          created_at?: string
+          id?: string
+          ml_product_id?: string | null
+          new_price?: number
+          old_price?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ml_price_history_ml_product_id_fkey"
+            columns: ["ml_product_id"]
+            isOneToOne: false
+            referencedRelation: "ml_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ml_products: {
+        Row: {
+          available_quantity: number
+          category_id: string | null
+          condition: string | null
+          created_at: string
+          id: string
+          listing_type_id: string | null
+          ml_item_id: string
+          permalink: string | null
+          price: number
+          sold_quantity: number
+          status: string | null
+          thumbnail: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          available_quantity?: number
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          id?: string
+          listing_type_id?: string | null
+          ml_item_id: string
+          permalink?: string | null
+          price: number
+          sold_quantity?: number
+          status?: string | null
+          thumbnail?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          available_quantity?: number
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          id?: string
+          listing_type_id?: string | null
+          ml_item_id?: string
+          permalink?: string | null
+          price?: number
+          sold_quantity?: number
+          status?: string | null
+          thumbnail?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ml_sales: {
+        Row: {
+          buyer_email: string | null
+          buyer_name: string | null
+          created_at: string
+          id: string
+          ml_product_id: string | null
+          order_id: string
+          quantity: number
+          sale_date: string
+          sale_fee: number | null
+          shipping_cost: number | null
+          status: string | null
+          total_amount: number
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          buyer_email?: string | null
+          buyer_name?: string | null
+          created_at?: string
+          id?: string
+          ml_product_id?: string | null
+          order_id: string
+          quantity: number
+          sale_date: string
+          sale_fee?: number | null
+          shipping_cost?: number | null
+          status?: string | null
+          total_amount: number
+          unit_price: number
+          updated_at?: string
+        }
+        Update: {
+          buyer_email?: string | null
+          buyer_name?: string | null
+          created_at?: string
+          id?: string
+          ml_product_id?: string | null
+          order_id?: string
+          quantity?: number
+          sale_date?: string
+          sale_fee?: number | null
+          shipping_cost?: number | null
+          status?: string | null
+          total_amount?: number
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ml_sales_ml_product_id_fkey"
+            columns: ["ml_product_id"]
+            isOneToOne: false
+            referencedRelation: "ml_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ml_settings: {
+        Row: {
+          access_token: string | null
+          created_at: string
+          expires_at: string | null
+          id: string
+          refresh_token: string | null
+          seller_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          refresh_token?: string | null
+          seller_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          refresh_token?: string | null
+          seller_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          nome: string | null
+          telefone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          nome?: string | null
+          telefone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          nome?: string | null
+          telefone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string | null
@@ -167,6 +378,7 @@ export type Database = {
           status: string
           time: string
           updated_at: string | null
+          user_id: string | null
         }
         Insert: {
           client_id?: string | null
@@ -179,6 +391,7 @@ export type Database = {
           status?: string
           time: string
           updated_at?: string | null
+          user_id?: string | null
         }
         Update: {
           client_id?: string | null
@@ -191,6 +404,7 @@ export type Database = {
           status?: string
           time?: string
           updated_at?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
