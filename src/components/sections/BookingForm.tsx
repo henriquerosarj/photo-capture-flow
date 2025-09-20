@@ -134,12 +134,12 @@ const BookingForm = () => {
                       <SelectValue placeholder="Selecione o serviço" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="wedding">Fotografia de Casamento</SelectItem>
-                      <SelectItem value="video">Filmagem Profissional</SelectItem>
-                      <SelectItem value="portrait">Ensaio Fotográfico</SelectItem>
-                      <SelectItem value="corporate">Eventos Corporativos</SelectItem>
-                      <SelectItem value="kids">Fotografia Infantil</SelectItem>
-                      <SelectItem value="custom">Pacote Personalizado</SelectItem>
+                      <SelectItem value="pet-photography">Fotografia de Pets</SelectItem>
+                      <SelectItem value="pet-family">Ensaio Pet + Família</SelectItem>
+                      <SelectItem value="pet-video">Vídeo Pet Profissional</SelectItem>
+                      <SelectItem value="pet-thematic">Book Pet Temático</SelectItem>
+                      <SelectItem value="pet-party">Pet Party/Eventos</SelectItem>
+                      <SelectItem value="pet-package">Pacote Acompanhamento</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -184,13 +184,13 @@ const BookingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="location" className="text-foreground font-medium">
                   <MapPin className="w-4 h-4 inline mr-2" />
-                  Local do Evento
+                  Local da Sessão
                 </Label>
                 <Input
                   id="location"
                   value={formData.location}
                   onChange={(e) => handleInputChange("location", e.target.value)}
-                  placeholder="Endereço ou local do evento"
+                  placeholder="Estúdio, domicílio ou local preferido"
                   className="bg-background border-border/50 focus:border-primary"
                 />
               </div>
@@ -204,7 +204,7 @@ const BookingForm = () => {
                   id="message"
                   value={formData.message}
                   onChange={(e) => handleInputChange("message", e.target.value)}
-                  placeholder="Conte-nos mais sobre seu evento, expectativas ou necessidades especiais..."
+                  placeholder="Conte-nos sobre seu pet, expectativas ou necessidades especiais para a sessão..."
                   rows={4}
                   className="bg-background border-border/50 focus:border-primary resize-none"
                 />
