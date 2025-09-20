@@ -7,9 +7,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar, Clock, MapPin, Phone, Mail, Camera } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 const BookingForm = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,35 +25,106 @@ const BookingForm = () => {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.service || !formData.date) {
+    if (!user) {
+      toast({
+        title: "Login necessário",
+        description: "Você precisa estar logado para fazer um agendamento.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validação básica
+    if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.date || !formData.time) {
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos obrigatórios.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
-    toast({
-      title: "Solicitação enviada!",
-      description: "Entraremos em contato em breve para confirmar seu agendamento.",
-    });
+    setLoading(true);
+    try {
+      // Primeiro, criar ou atualizar o cliente
+      const { data: existingClient, error: clientSearchError } = await supabase
+        .from("clients")
+        .select("id")
+        .eq("email", formData.email)
+        .eq("user_id", user.id)
+        .maybeSingle();
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      date: "",
-      time: "",
-      location: "",
-      message: ""
-    });
+      let clientId = existingClient?.id;
+
+      if (!clientId) {
+        // Criar novo cliente
+        const { data: newClient, error: clientError } = await supabase
+          .from("clients")
+          .insert({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            user_id: user.id,
+          })
+          .select("id")
+          .single();
+
+        if (clientError) throw clientError;
+        clientId = newClient.id;
+      }
+
+      // Buscar o serviço selecionado
+      const { data: service, error: serviceError } = await supabase
+        .from("services")
+        .select("id")
+        .eq("package_type", formData.service)
+        .maybeSingle();
+
+      // Criar a sessão
+      const { error: sessionError } = await supabase
+        .from("sessions")
+        .insert({
+          client_id: clientId,
+          service_id: service?.id,
+          date: formData.date,
+          time: formData.time,
+          location: formData.location,
+          notes: formData.message,
+          user_id: user.id,
+          status: "agendado",
+        });
+
+      if (sessionError) throw sessionError;
+      
+      toast({
+        title: "Agendamento realizado!",
+        description: "Sua sessão foi agendada com sucesso. Entraremos em contato em breve.",
+      });
+      
+      // Limpar formulário
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        date: "",
+        time: "",
+        location: "",
+        message: "",
+      });
+    } catch (error: any) {
+      console.error("Erro no agendamento:", error);
+      toast({
+        title: "Erro no agendamento",
+        description: error.message || "Ocorreu um erro. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -215,10 +290,11 @@ const BookingForm = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-gradient-hero shadow-elegant hover:shadow-gold transition-all duration-300"
+                  disabled={loading || !user}
+                  className="w-full bg-gradient-hero shadow-elegant hover:shadow-gold transition-all duration-300 disabled:opacity-50"
                 >
                   <Calendar className="w-5 h-5 mr-2" />
-                  Solicitar Agendamento
+                  {loading ? "Agendando..." : !user ? "Faça login para agendar" : "Solicitar Agendamento"}
                 </Button>
               </div>
             </form>
